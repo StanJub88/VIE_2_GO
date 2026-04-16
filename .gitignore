@@ -1,1 +1,17 @@
+# Secrets — ne jamais publier
 .env
+
+# Données scrapées — optionnel de les versionner
+vie_offers.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.Python
+*.egg-info/
+dist/
+build/
+
+# macOS
+.DS_Store

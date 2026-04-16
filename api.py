@@ -1,17 +1,26 @@
 #!/usr/bin/env python3
 """
 API Flask pour les annonces VIE
-Phase 2 — avec scraping asynchrone, cache et statut
+Phase 2 — avec scraping asynchrone, cache, statut et frontend intégré
 
 Structure du projet :
     ├── .env
+    ├── .gitignore
     ├── api.py                  ← ce fichier
-    ├── unify_vie_offers.py     ← ton script de scraping
+    ├── index.html              ← frontend servi par Flask
+    ├── unify_vie_offers.py     ← script de scraping
+    ├── requirements.txt
+    ├── Procfile
     └── vie_offers.json         ← généré automatiquement
 
-Utilisation :
-    pip install flask python-dotenv requests
+Utilisation locale :
+    pip install -r requirements.txt
     python3 api.py
+
+Déploiement Railway :
+    - Pusher sur GitHub
+    - Connecter le repo sur railway.app
+    - Ajouter les variables ALGOLIA_API_KEY et ALGOLIA_APP_ID
 """
 
 import json
@@ -19,10 +28,7 @@ import os
 import threading
 from datetime import datetime
 from flask import Flask, jsonify, request, send_from_directory
-from flask_cors import CORS
 from dotenv import load_dotenv
-
-
 
 # Charge les variables d'environnement depuis .env
 load_dotenv()
@@ -37,7 +43,6 @@ from unify_vie_offers import VIEUnifier
 OFFERS_FILE = "vie_offers.json"   # fichier cache JSON
 
 app = Flask(__name__)
-CORS(app)
 
 # ============================================================================
 # ÉTAT DU SCRAPING (partagé entre le thread et l'API)
@@ -121,18 +126,9 @@ def load_offers():
 # ============================================================================
 
 @app.route("/", methods=["GET"])
-def index():
-    """Documentation de l'API"""
-    return jsonify({
-        "name": "VIE Offers API",
-        "version": "2.0",
-        "endpoints": {
-            "GET  /api/offers":        "Liste les annonces (params: source, country, keyword, limit)",
-            "GET  /api/stats":         "Statistiques sur les annonces en cache",
-            "POST /api/scrape":        "Lance un scraping (body JSON: {source: 'all'|'vie'|'wtj'})",
-            "GET  /api/status":        "Statut du scraping en cours ou du dernier scraping",
-        }
-    })
+def serve_frontend():
+    """Sert la page HTML du frontend"""
+    return send_from_directory(".", "index.html")
 
 
 @app.route("/api/offers", methods=["GET"])
@@ -264,9 +260,6 @@ def get_status():
     """
     return jsonify(scrape_status)
 
-@app.route("/")
-def serve_frontend():
-    return send_from_directory(".", "index.html")
 
 # ============================================================================
 # MAIN
