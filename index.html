@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VIE Radar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f7f7f5;
+      --surface: #ffffff;
+      --border: #e2e2de;
+      --border-dark: #c8c8c2;
+      --text: #1a1a1a;
+      --muted: #6b6b67;
+      --muted2: #9b9b97;
+      --blue: #2563eb;
+      --blue-bg: #eff6ff;
+      --green: #16a34a;
+      --green-bg: #f0fdf4;
+      --radius: 8px;
+      --radius-sm: 6px;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .logo {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .logo span { color: var(--muted2); font-weight: 400; }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .last-update {
+      font-size: 12px;
+      color: var(--muted2);
+    }
+
+    /* ── BUTTON ── */
+    .btn-scrape {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 16px;
+      background: var(--text);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      white-space: nowrap;
+    }
+    .btn-scrape:hover { opacity: 0.8; }
+    .btn-scrape:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #fff;
+      flex-shrink: 0;
+    }
+    .btn-scrape.running .dot { animation: blink 0.9s ease-in-out infinite; }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.15; }
+    }
+
+    /* ── STATUS ── */
+    .status-bar {
+      padding: 9px 40px;
+      font-size: 12px;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .status-bar.visible { display: flex; }
+    .status-bar.info    { background: #fffbeb; color: #92400e; }
+    .status-bar.success { background: var(--green-bg); color: var(--green); }
+    .status-bar.error   { background: #fef2f2; color: #b91c1c; }
+
+    /* ── TOOLBAR ── */
+    .toolbar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 40px;
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .filter-group label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--muted2);
+      font-weight: 500;
+    }
+
+    .filter-group input,
+    .filter-group select {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 13px;
+      padding: 6px 10px;
+      outline: none;
+      transition: border-color 0.15s;
+      height: 32px;
+    }
+    .filter-group input { width: 160px; }
+    .filter-group select { width: 170px; }
+    .filter-group input::placeholder { color: var(--muted2); }
+    .filter-group input:focus,
+    .filter-group select:focus { border-color: var(--border-dark); }
+
+    .toolbar-sep {
+      width: 1px; height: 28px;
+      background: var(--border);
+      margin: 0 2px 2px;
+    }
+
+    .btn-reset {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 0 12px;
+      border-radius: var(--radius-sm);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 12px;
+      cursor: pointer;
+      height: 32px;
+      transition: all 0.15s;
+    }
+    .btn-reset:hover { border-color: var(--border-dark); color: var(--text); }
+
+    /* ── STATS ROW ── */
+    .stats-row {
+      padding: 8px 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 12px;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .stats-row strong { color: var(--text); font-weight: 500; }
+
+    /* ── MAIN ── */
+    main { padding: 24px 40px 48px; }
+
+    /* ── TABLE ── */
+    .table-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    table { width: 100%; border-collapse: collapse; }
+
+    thead { border-bottom: 1px solid var(--border); }
+
+    th {
+      padding: 10px 16px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--muted2);
+      background: var(--bg);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 12px 16px;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+    tbody tr { transition: background 0.1s; }
+    tbody tr:hover { background: var(--bg); }
+
+    .td-title a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .td-title a:hover { color: var(--blue); }
+    .td-company { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 500;
+      padding: 2px 7px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .badge.vie     { background: var(--blue-bg); color: var(--blue); }
+    .badge.wtj     { background: var(--green-bg); color: var(--green); }
+
+    .td-muted { color: var(--muted); }
+
+    .td-salary {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    /* ── PLACEHOLDER ── */
+    .table-placeholder {
+      padding: 56px 24px;
+      text-align: center;
+      color: var(--muted2);
+    }
+    .table-placeholder strong {
+      display: block;
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+
+    /* ── SKELETON ── */
+    .skeleton-line {
+      background: linear-gradient(90deg, var(--bg) 25%, #e8e8e4 50%, var(--bg) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+      border-radius: 4px;
+      display: inline-block;
+      height: 13px;
+    }
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      header, .toolbar, .stats-row, main, .status-bar { padding-left: 16px; padding-right: 16px; }
+      .filter-group input { width: 130px; }
+      .filter-group select { width: 140px; }
+      th:nth-child(4), td:nth-child(4),
+      th:nth-child(5), td:nth-child(5) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">vie<span>/</span>radar</div>
+    <div class="header-right">
+      <span class="last-update" id="last-update"></span>
+      <button class="btn-scrape" id="btn-scrape" onclick="startScraping()">
+        <span class="dot"></span>
+        <span id="btn-label">Lancer le scraping</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="status-bar" id="status-bar"></div>
+
+  <div class="toolbar">
+    <div class="filter-group">
+      <label>Pays</label>
+      <input type="text" id="f-country" placeholder="Japon, USA…" oninput="applyFilters()">
+    </div>
+    <div class="filter-group">
+      <label>Source</label>
+      <select id="f-source" onchange="applyFilters()">
+        <option value="">Toutes les sources</option>
+        <option value="VIE">Business France</option>
+        <option value="Welcome">Welcome to the Jungle</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Durée (mois)</label>
+      <select id="f-duration" onchange="applyFilters()">
+        <option value="">Toutes</option>
+        <option value="6">6 mois</option>
+        <option value="12">12 mois</option>
+        <option value="18">18 mois</option>
+        <option value="24">24 mois</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Secteur</label>
+      <select id="f-sector" onchange="applyFilters()">
+        <option value="">Tous les secteurs</option>
+      </select>
+    </div>
+    <div class="toolbar-sep"></div>
+    <button class="btn-reset" onclick="resetFilters()">Réinitialiser</button>
+  </div>
+
+  <div class="stats-row">
+    <span><strong id="stat-count">—</strong> offres affichées</span>
+    <span id="stat-sources"></span>
+  </div>
+
+  <main>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Poste / Entreprise</th>
+            <th>Source</th>
+            <th>Localisation</th>
+            <th>Durée</th>
+            <th>Secteur</th>
+            <th>Indemnité</th>
+          </tr>
+        </thead>
+        <tbody id="offers-body">
+          <tr><td colspan="6">
+            <div class="table-placeholder">
+              <strong>Aucune donnée</strong>
+              Lance un scraping pour récupérer les offres VIE.
+            </div>
+          </td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    const API_BASE = "http://localhost:5000"; // ← change si port différent
+
+    let allOffers = [];
+    let pollInterval = null;
+
+    window.addEventListener("DOMContentLoaded", loadOffers);
+
+    // ── CHARGEMENT ───────────────────────────────────────────────────────────
+    async function loadOffers() {
+      showSkeletons();
+      try {
+        const res = await fetch(`${API_BASE}/api/offers?limit=2000`);
+        if (!res.ok) throw new Error();
+        const data = await res.json();
+        allOffers = data.offers || [];
+        populateSectorFilter(allOffers);
+        applyFilters();
+        loadMeta();
+      } catch {
+        showEmpty("Aucune donnée disponible", "Lance un scraping pour récupérer les offres.");
+        document.getElementById("stat-count").textContent = "—";
+      }
+    }
+
+    async function loadMeta() {
+      try {
+        const res = await fetch(`${API_BASE}/api/stats`);
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data.exported_at) {
+          const d = new Date(data.exported_at);
+          document.getElementById("last-update").textContent =
+            "Mis à jour le " + d.toLocaleDateString("fr-FR", {
+              day: "numeric", month: "short",
+              hour: "2-digit", minute: "2-digit"
+            });
+        }
+        if (data.sources?.length) {
+          document.getElementById("stat-sources").textContent = data.sources.join(" · ");
+        }
+      } catch {}
+    }
+
+    // ── FILTRE SECTEUR DYNAMIQUE ─────────────────────────────────────────────
+    function populateSectorFilter(offers) {
+      const sectors = new Set();
+      for (const o of offers) {
+        if (o.sectors) {
+          const top = o.sectors.split(" > ")[0].trim();
+          if (top) sectors.add(top);
+        }
+      }
+      const sel = document.getElementById("f-sector");
+      sel.innerHTML = `<option value="">Tous les secteurs</option>` +
+        [...sectors].sort().map(s =>
+          `<option value="${escHtml(s)}">${escHtml(s)}</option>`
+        ).join("");
+    }
+
+    // ── SCRAPING ─────────────────────────────────────────────────────────────
+    async function startScraping() {
+      const btn = document.getElementById("btn-scrape");
+      btn.disabled = true;
+      btn.classList.add("running");
+      document.getElementById("btn-label").textContent = "Scraping en cours…";
+      setStatus("info", "Scraping lancé — durée estimée : 1 à 2 minutes…");
+
+      try {
+        const res = await fetch(`${API_BASE}/api/scrape`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ source: "all" })
+        });
+        if (res.status === 409) {
+          setStatus("info", "Un scraping est déjà en cours, patience…");
+        } else if (!res.ok) {
+          throw new Error();
+        }
+        pollInterval = setInterval(pollStatus, 5000);
+      } catch {
+        setStatus("error", "Impossible de joindre l'API. Vérifiez que api.py est lancé.");
+        resetBtn();
+      }
+    }
+
+    async function pollStatus() {
+      try {
+        const res = await fetch(`${API_BASE}/api/status`);
+        const data = await res.json();
+        if (!data.running) {
+          clearInterval(pollInterval);
+          pollInterval = null;
+          if (data.success === true) {
+            setStatus("success", `Scraping terminé — ${data.total_offers} offres récupérées`);
+            await loadOffers();
+          } else if (data.success === false) {
+            setStatus("error", `Erreur : ${data.error}`);
+          }
+          resetBtn();
+        }
+      } catch {
+        clearInterval(pollInterval);
+        setStatus("error", "Impossible de vérifier le statut du scraping.");
+        resetBtn();
+      }
+    }
+
+    function resetBtn() {
+      const btn = document.getElementById("btn-scrape");
+      btn.disabled = false;
+      btn.classList.remove("running");
+      document.getElementById("btn-label").textContent = "Relancer le scraping";
+    }
+
+    // ── FILTRES ──────────────────────────────────────────────────────────────
+    function applyFilters() {
+      const country  = document.getElementById("f-country").value.toLowerCase().trim();
+      const source   = document.getElementById("f-source").value.toLowerCase();
+      const duration = document.getElementById("f-duration").value;
+      const sector   = document.getElementById("f-sector").value.toLowerCase();
+
+      let filtered = allOffers;
+
+      if (country)  filtered = filtered.filter(o => (o.country || "").toLowerCase().includes(country));
+      if (source)   filtered = filtered.filter(o => o.source.toLowerCase().includes(source));
+      if (duration) filtered = filtered.filter(o => o.duration_months && String(o.duration_months).includes(duration));
+      if (sector)   filtered = filtered.filter(o => (o.sectors || "").toLowerCase().includes(sector));
+
+      renderTable(filtered);
+      document.getElementById("stat-count").textContent = filtered.length.toLocaleString("fr-FR");
+    }
+
+    function resetFilters() {
+      ["f-country", "f-source", "f-duration", "f-sector"].forEach(id => {
+        const el = document.getElementById(id);
+        el.tagName === "INPUT" ? el.value = "" : el.selectedIndex = 0;
+      });
+      applyFilters();
+    }
+
+    // ── RENDU TABLE ──────────────────────────────────────────────────────────
+    function renderTable(offers) {
+      if (!offers.length) {
+        showEmpty("Aucun résultat", "Essaie d'autres filtres.");
+        return;
+      }
+
+      document.getElementById("offers-body").innerHTML = offers.map(o => {
+        const isVIE = o.source.includes("Business France") || o.source.includes("VIE");
+        const location = [o.city, o.country].filter(Boolean).join(", ");
+        const sector = o.sectors ? o.sectors.split(" > ")[0] : "—";
+
+        return `<tr>
+          <td class="td-title">
+            <a href="${o.link || '#'}" target="_blank" rel="noopener">${escHtml(o.title)}</a>
+            <div class="td-company">${escHtml(o.company)}</div>
+          </td>
+          <td><span class="badge ${isVIE ? 'vie' : 'wtj'}">${isVIE ? 'Business France' : 'WTJ'}</span></td>
+          <td class="td-muted">${escHtml(location || "—")}</td>
+          <td class="td-muted">${o.duration_months ? escHtml(String(o.duration_months)) + " mois" : "—"}</td>
+          <td class="td-muted">${escHtml(sector)}</td>
+          <td class="td-salary">${o.salary ? escHtml(o.salary) : "—"}</td>
+        </tr>`;
+      }).join("");
+    }
+
+    // ── HELPERS ──────────────────────────────────────────────────────────────
+    function showEmpty(title, sub) {
+      document.getElementById("offers-body").innerHTML = `
+        <tr><td colspan="6">
+          <div class="table-placeholder">
+            <strong>${escHtml(title)}</strong>${escHtml(sub)}
+          </div>
+        </td></tr>`;
+    }
+
+    function showSkeletons() {
+      const widths = [160, 70, 100, 50, 110, 60];
+      document.getElementById("offers-body").innerHTML =
+        Array.from({ length: 8 }, () => `<tr>${
+          widths.map(w =>
+            `<td><span class="skeleton-line" style="width:${w}px">&nbsp;</span></td>`
+          ).join("")
+        }</tr>`).join("");
+    }
+
+    function setStatus(type, msg) {
+      const bar = document.getElementById("status-bar");
+      bar.className = `status-bar visible ${type}`;
+      bar.textContent = msg;
+    }
+
+    function escHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+  </script>
+</body>
+</html>
