@@ -18,7 +18,7 @@ import json
 import os
 import threading
 from datetime import datetime
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 from dotenv import load_dotenv
 
@@ -264,6 +264,9 @@ def get_status():
     """
     return jsonify(scrape_status)
 
+@app.route("/")
+def serve_frontend():
+    return send_from_directory(".", "index.html")
 
 # ============================================================================
 # MAIN
