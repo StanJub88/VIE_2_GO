@@ -81,6 +81,79 @@ class UnifiedOffer:
         d['source'] = self.source.value  # ✅ CORRECTION 2 : sérialise l'Enum proprement
         return d
 
+
+# ============================================================================
+# NORMALISATION DES SECTEURS
+# ============================================================================
+
+# Secteurs normalisés avec leurs mots-clés de détection (ordre = priorité)
+SECTOR_KEYWORDS = [
+    ("Informatique & Tech",      ["tech lead", "développeur", "developer", "software", "data",
+                                   "cloud", "devops", "cybersécurité", "cyber", "intelligence artificielle",
+                                   "machine learning", "systèmes", "réseau", "informatique", "digital",
+                                   "numérique", "erp", "sap", "web", "mobile", "fullstack",
+                                   "backend", "frontend", "api", "infrastructure", "it "]),
+    ("Finance & Banque",         ["finance", "financier", "comptable", "comptabilité", "audit",
+                                   "contrôle de gestion", "trésorerie", "banque", "banking", "risk",
+                                   "crédit", "fiscal", "consolidation", "reporting financier"]),
+    ("Ingénierie & Industrie",   ["ingénieur", "technicien", "mécanique", "électronique", "électrique",
+                                   "automatisme", "production", "industriel", "manufacturing", "usine",
+                                   "maintenance", "qualité", "lean", "méthodes", "procédés",
+                                   "bureau d'études", "conception"]),
+    ("Commerce & Vente",         ["commercial", "vente", "sales", "business development", "account",
+                                   "customer", "négociation", "grands comptes", "b2b", "b2c",
+                                   "export", "prescription", "avant-vente"]),
+    ("Marketing & Communication",["marketing", "communication", "brand", "marque", "digital marketing",
+                                   "seo", "sea", "réseaux sociaux", "contenu", "rédaction", "publicité",
+                                   "événementiel", "relations presse", "média", "influence"]),
+    ("Supply Chain & Logistique",["supply chain", "logistique", "achats", "procurement", "sourcing",
+                                   "approvisionn", "stock", "entrepôt", "transport", "douane",
+                                   "planification", "demand"]),
+    ("Ressources Humaines",      ["ressources humaines", " rh ", "recrutement", "talent", "formation",
+                                   "paie", "relations sociales", "compensation", "human resources"]),
+    ("Juridique & Compliance",   ["juridique", "droit", "legal", "compliance", "conformité", "contrats",
+                                   "propriété intellectuelle", "rgpd", "réglementaire"]),
+    ("Conseil & Stratégie",      ["conseil", "consulting", "stratégie", "transformation",
+                                   "gestion de projet", "project manager", "chef de projet", "pmo"]),
+    ("Énergie & Environnement",  ["énergie", "energy", "environnement", "développement durable", "rse",
+                                   "renouvelable", "solaire", "éolien", "nucléaire", "pétrole", "oil",
+                                   "gas", "mining", "décarbonation", "esg", "eau"]),
+    ("Santé & Pharma",           ["santé", "médical", "pharma", "pharmaceutique", "clinique", "biologie",
+                                   "biotechnologie", "dispositif médical", "health"]),
+    ("Aéronautique & Défense",   ["aéronautique", "aérospatial", "défense", "aviation", "aerospace",
+                                   "drone", "spatial", "satellite", "naval"]),
+    ("BTP & Immobilier",         ["btp", "bâtiment", "construction", "génie civil", "immobilier",
+                                   "architecture", "chantier", "travaux", "infrastructure"]),
+    ("Agroalimentaire",          ["agroalimentaire", "agriculture", "alimentaire", "food",
+                                   "agronomie", "viticulture", "élevage"]),
+    ("Luxe & Mode",              ["luxe", "mode", "fashion", "cosmétique", "parfum", "joaillerie",
+                                   "horlogerie", "lifestyle"]),
+    ("Tourisme & Hôtellerie",    ["tourisme", "hôtellerie", "hôtel", "restaurant", "hospitality",
+                                   "voyage", "croisière"]),
+    ("Éducation & Recherche",    ["éducation", "formation", "enseignement", "recherche", "académique",
+                                   "université", "laboratoire"]),
+]
+
+def infer_sector(title: str, description: str) -> Optional[str]:
+    """Infère le secteur d'une offre BF depuis son titre et sa description."""
+    text = f"{title} {description or ''}".lower()
+    for sector_name, keywords in SECTOR_KEYWORDS:
+        if any(kw in text for kw in keywords):
+            return sector_name
+    return None
+
+def normalize_wtj_sector(sectors_str: str) -> Optional[str]:
+    """Normalise les secteurs WTJ vers les mêmes labels que BF."""
+    if not sectors_str:
+        return None
+    text = sectors_str.lower()
+    for sector_name, keywords in SECTOR_KEYWORDS:
+        if any(kw in text for kw in keywords):
+            return sector_name
+    # Fallback : premier segment nettoyé
+    first = sectors_str.split(">")[0].split("/")[0].strip()
+    return first if first else None
+
 # ============================================================================
 # SCRAPER VIE (Business France)
 # ============================================================================
@@ -184,13 +257,19 @@ class VIEScraper:
             contact_name = offer.get('contactName', '').strip()
             contact_email = offer.get('contactEmail', '').strip()
             
-            # Secteurs
+            # Secteurs — d'abord depuis l'API, sinon inféré depuis titre+description
             sectors = []
             if offer.get('activitySectorN1'):
                 sectors.append(offer.get('activitySectorN1'))
             if offer.get('activitySectorN2'):
                 sectors.append(offer.get('activitySectorN2'))
-            sectors_str = " > ".join(sectors) if sectors else None
+            if sectors:
+                sectors_str = " > ".join(sectors)
+                # Normalise vers les labels unifiés
+                sectors_str = normalize_wtj_sector(sectors_str) or sectors_str
+            else:
+                # Business France renvoie souvent sectors=null → on infère
+                sectors_str = infer_sector(title, description or '')
             
             # Lien
             offer_id = offer.get('id', '')
@@ -375,10 +454,11 @@ class WTJScraper:
             description = " | ".join(key_missions[:3]) if key_missions else None
             description = description[:500] if description else None
 
-            # Secteurs
+            # Secteurs — normalisés vers les labels unifiés
             sectors = offer.get('sectors', [])
             sectors_list = [s.get('name', '') for s in sectors if s.get('name')]
-            sectors_str = " > ".join(sectors_list) if sectors_list else None
+            raw_sectors = " > ".join(sectors_list) if sectors_list else None
+            sectors_str = normalize_wtj_sector(raw_sectors) or infer_sector(title, description or '')
             
             # Lien
             job_slug = offer.get('slug', '')
