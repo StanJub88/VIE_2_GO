@@ -21,7 +21,6 @@
       --blue-bg: #eff6ff;
       --green: #16a34a;
       --green-bg: #f0fdf4;
-      --accent: #1a1a1a;
       --radius: 8px;
       --radius-sm: 6px;
     }
@@ -35,15 +34,11 @@
       line-height: 1.6;
     }
 
-    /* ── HEADER ── */
     header {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
       padding: 14px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
     }
     .logo { font-family: 'IBM Plex Mono', monospace; font-size: 17px; font-weight: 500; }
     .logo span { color: var(--muted2); font-weight: 400; }
@@ -52,8 +47,7 @@
 
     .btn-scrape {
       display: inline-flex; align-items: center; gap: 7px;
-      padding: 8px 16px;
-      background: var(--text); color: #fff;
+      padding: 8px 16px; background: var(--text); color: #fff;
       border: none; border-radius: var(--radius-sm);
       font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 500;
       cursor: pointer; transition: opacity 0.15s; white-space: nowrap;
@@ -64,7 +58,6 @@
     .btn-scrape.running .dot { animation: blink 0.9s ease-in-out infinite; }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.15} }
 
-    /* ── STATUS ── */
     .status-bar {
       padding: 9px 40px; font-size: 12px; display: none;
       align-items: center; border-bottom: 1px solid var(--border);
@@ -74,109 +67,69 @@
     .status-bar.success { background: var(--green-bg); color: var(--green); }
     .status-bar.error   { background: #fef2f2; color: #b91c1c; }
 
-    /* ── DASHBOARD ── */
+    /* DASHBOARD */
     .dashboard {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
-      padding: 20px 40px;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
-      background-color: var(--border);
+      gap: 1px; background-color: var(--border);
     }
-    .dash-card {
-      background: var(--surface);
-      padding: 16px 20px;
-    }
+    .dash-card { background: var(--surface); padding: 16px 24px; }
     .dash-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: var(--muted2);
-      font-weight: 500;
-      margin-bottom: 6px;
+      font-size: 11px; text-transform: uppercase;
+      letter-spacing: 0.07em; color: var(--muted2); font-weight: 500; margin-bottom: 6px;
     }
     .dash-value {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 26px;
-      font-weight: 500;
-      color: var(--text);
-      line-height: 1;
-      margin-bottom: 8px;
+      font-size: 26px; font-weight: 500; line-height: 1; margin-bottom: 8px;
     }
-    .dash-sub {
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-    .dash-sub span {
-      display: inline-block;
-      margin-right: 8px;
-    }
-    .dash-bar {
-      display: flex;
-      gap: 2px;
-      margin-top: 8px;
-      height: 4px;
-    }
-    .dash-bar-seg {
-      height: 100%;
-      border-radius: 2px;
-      transition: width 0.4s;
-    }
+    .dash-sub { font-size: 12px; color: var(--muted); line-height: 1.8; }
+    .dash-sub strong { color: var(--text); font-weight: 500; }
+    .dash-bar { display: flex; gap: 2px; margin-top: 8px; height: 4px; }
+    .dash-bar-seg { height: 100%; border-radius: 2px; }
 
-    /* ── TABS ── */
+    /* TABS */
     .tabs-bar {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 0 40px;
-      display: flex;
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      padding: 0 40px; display: flex;
     }
     .tab-btn {
-      padding: 11px 18px;
-      font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 500;
-      color: var(--muted); background: none; border: none;
-      border-bottom: 2px solid transparent;
+      padding: 11px 18px; font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 13px; font-weight: 500; color: var(--muted);
+      background: none; border: none; border-bottom: 2px solid transparent;
       cursor: pointer; transition: color 0.15s, border-color 0.15s;
       display: flex; align-items: center; gap: 8px; margin-bottom: -1px;
     }
     .tab-btn:hover { color: var(--text); }
     .tab-btn.active { color: var(--text); border-bottom-color: var(--text); }
     .tab-count {
-      font-size: 11px; font-weight: 400;
-      padding: 1px 6px; border-radius: 10px;
-      background: var(--bg); color: var(--muted2);
-      transition: background 0.15s, color 0.15s;
+      font-size: 11px; font-weight: 400; padding: 1px 6px; border-radius: 10px;
+      background: var(--bg); color: var(--muted2); transition: background 0.15s, color 0.15s;
     }
     .tab-btn.active .tab-count { background: var(--text); color: #fff; }
 
-    /* ── TOOLBAR ── */
+    /* TOOLBAR */
     .toolbar {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 10px 40px;
-      display: flex; align-items: flex-end; gap: 10px; flex-wrap: wrap;
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      padding: 10px 40px; display: flex; align-items: flex-end; gap: 10px; flex-wrap: wrap;
     }
     .filter-group { display: flex; flex-direction: column; gap: 4px; }
     .filter-group label {
       font-size: 10px; text-transform: uppercase;
       letter-spacing: 0.07em; color: var(--muted2); font-weight: 500;
     }
-    .filter-group input,
-    .filter-group select {
+    .filter-group input, .filter-group select {
       background: var(--bg); border: 1px solid var(--border);
       border-radius: var(--radius-sm); color: var(--text);
       font-family: 'IBM Plex Sans', sans-serif; font-size: 13px;
       padding: 6px 10px; outline: none; transition: border-color 0.15s; height: 32px;
     }
     .filter-group input { width: 180px; }
-    .filter-group select { width: 160px; }
+    .filter-group select { width: 200px; }
     .filter-group input::placeholder { color: var(--muted2); }
-    .filter-group input:focus,
-    .filter-group select:focus { border-color: var(--border-dark); }
-
+    .filter-group input:focus, .filter-group select:focus { border-color: var(--border-dark); }
     .toolbar-sep { width: 1px; height: 28px; background: var(--border); margin: 0 2px 2px; }
-
     .btn-reset {
       background: none; border: 1px solid var(--border); color: var(--muted);
       padding: 0 12px; border-radius: var(--radius-sm);
@@ -185,91 +138,58 @@
     }
     .btn-reset:hover { border-color: var(--border-dark); color: var(--text); }
 
-    /* ── ZONES GÉOGRAPHIQUES ── */
+    /* ZONES */
     .zones-bar {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 8px 40px;
-      display: flex; gap: 6px; flex-wrap: wrap; align-items: center;
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      padding: 8px 40px; display: flex; gap: 6px; flex-wrap: wrap; align-items: center;
     }
     .zones-label {
       font-size: 11px; text-transform: uppercase;
-      letter-spacing: 0.07em; color: var(--muted2); font-weight: 500;
-      margin-right: 4px;
+      letter-spacing: 0.07em; color: var(--muted2); font-weight: 500; margin-right: 4px;
     }
     .zone-chip {
       display: inline-flex; align-items: center; gap: 5px;
       padding: 4px 10px; border-radius: 100px;
-      border: 1px solid var(--border);
-      font-size: 12px; color: var(--muted);
-      cursor: pointer; background: var(--bg);
-      transition: all 0.15s; user-select: none;
+      border: 1px solid var(--border); font-size: 12px; color: var(--muted);
+      cursor: pointer; background: var(--bg); transition: all 0.15s; user-select: none;
     }
     .zone-chip:hover { border-color: var(--border-dark); color: var(--text); }
-    .zone-chip.active {
-      background: var(--text); color: #fff;
-      border-color: var(--text);
-    }
+    .zone-chip.active { background: var(--text); color: #fff; border-color: var(--text); }
 
-    /* ── STATS ROW ── */
+    /* STATS + SORT */
     .stats-row {
-      padding: 7px 40px;
-      display: flex; align-items: center; gap: 16px;
-      font-size: 12px; color: var(--muted);
-      border-bottom: 1px solid var(--border);
-      background: var(--bg);
+      padding: 7px 40px; font-size: 12px; color: var(--muted);
+      border-bottom: 1px solid var(--border); background: var(--bg);
     }
     .stats-row strong { color: var(--text); font-weight: 500; }
-
-    /* ── SORT ROW ── */
     .sort-row {
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
-      padding: 6px 40px;
-      display: flex; align-items: center; gap: 6px;
-      font-size: 12px; color: var(--muted);
+      background: var(--bg); border-bottom: 1px solid var(--border);
+      padding: 6px 40px; display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted);
     }
     .sort-label { margin-right: 4px; }
     .sort-btn {
-      padding: 3px 10px; border-radius: 100px;
-      border: 1px solid transparent;
-      font-size: 12px; color: var(--muted);
-      background: none; cursor: pointer;
+      padding: 3px 10px; border-radius: 100px; border: 1px solid transparent;
+      font-size: 12px; color: var(--muted); background: none; cursor: pointer;
       transition: all 0.15s; font-family: 'IBM Plex Sans', sans-serif;
       display: inline-flex; align-items: center; gap: 4px;
     }
     .sort-btn:hover { border-color: var(--border); color: var(--text); }
-    .sort-btn.active {
-      background: var(--surface);
-      border-color: var(--border-dark);
-      color: var(--text);
-    }
-    .sort-arrow { font-size: 10px; }
+    .sort-btn.active { background: var(--surface); border-color: var(--border-dark); color: var(--text); }
 
-    /* ── MAIN ── */
+    /* TABLE */
     main { padding: 20px 40px 48px; }
-
     .table-wrap {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
     }
-
     table { width: 100%; border-collapse: collapse; }
     thead { border-bottom: 1px solid var(--border); }
-
     th {
-      padding: 10px 16px; text-align: left;
-      font-size: 11px; font-weight: 500;
-      text-transform: uppercase; letter-spacing: 0.07em;
-      color: var(--muted2); background: var(--bg); white-space: nowrap;
+      padding: 10px 16px; text-align: left; font-size: 11px; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted2);
+      background: var(--bg); white-space: nowrap;
     }
-
-    td {
-      padding: 11px 16px; font-size: 13px;
-      border-bottom: 1px solid var(--border); vertical-align: middle;
-    }
+    td { padding: 11px 16px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: middle; }
     tr:last-child td { border-bottom: none; }
     tbody tr { transition: background 0.1s; }
     tbody tr:hover { background: var(--bg); }
@@ -277,26 +197,13 @@
     .td-title a { color: var(--text); text-decoration: none; font-weight: 500; }
     .td-title a:hover { color: var(--blue); }
     .td-company { font-size: 12px; color: var(--muted); margin-top: 1px; }
-
-    .td-location { color: var(--muted); font-size: 13px; white-space: nowrap; }
-    .td-flag { margin-right: 5px; font-size: 15px; }
+    .td-location { color: var(--muted); white-space: nowrap; }
     .td-muted { color: var(--muted); }
+    .td-sector { color: var(--muted); }
+    .td-salary { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--muted); white-space: nowrap; }
 
-    .td-sector { color: var(--muted); font-size: 13px; }
-    .sector-icon { margin-right: 5px; font-size: 13px; }
-
-    .td-salary {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 12px; color: var(--muted); white-space: nowrap;
-    }
-
-    .table-placeholder {
-      padding: 56px 24px; text-align: center; color: var(--muted2);
-    }
-    .table-placeholder strong {
-      display: block; font-size: 14px; color: var(--muted);
-      margin-bottom: 4px; font-weight: 500;
-    }
+    .table-placeholder { padding: 56px 24px; text-align: center; color: var(--muted2); }
+    .table-placeholder strong { display: block; font-size: 14px; color: var(--muted); margin-bottom: 4px; font-weight: 500; }
 
     .skeleton-line {
       background: linear-gradient(90deg, var(--bg) 25%, #e8e8e4 50%, var(--bg) 75%);
@@ -306,31 +213,28 @@
     @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
 
     @media (max-width: 900px) {
-      header, .dashboard, .tabs-bar, .toolbar, .zones-bar,
-      .stats-row, .sort-row, main, .status-bar { padding-left: 16px; padding-right: 16px; }
+      header, .tabs-bar, .toolbar, .zones-bar, .stats-row, .sort-row, main, .status-bar, .dashboard
+        { padding-left: 16px; padding-right: 16px; }
       .dashboard { grid-template-columns: repeat(2, 1fr); }
       .filter-group input { width: 140px; }
-      .filter-group select { width: 130px; }
+      .filter-group select { width: 160px; }
     }
   </style>
 </head>
 <body>
 
-<!-- ── HEADER ─────────────────────────────────────────────────────────── -->
 <header>
   <div class="logo">vie<span>/</span>radar</div>
   <div class="header-right">
     <span class="last-update" id="last-update"></span>
     <button class="btn-scrape" id="btn-scrape" onclick="startScraping()">
-      <span class="dot"></span>
-      <span id="btn-label">Lancer le scraping</span>
+      <span class="dot"></span><span id="btn-label">Lancer le scraping</span>
     </button>
   </div>
 </header>
 
 <div class="status-bar" id="status-bar"></div>
 
-<!-- ── DASHBOARD ──────────────────────────────────────────────────────── -->
 <div class="dashboard">
   <div class="dash-card">
     <div class="dash-label">Total offres</div>
@@ -339,23 +243,22 @@
     <div class="dash-bar" id="d-bar"></div>
   </div>
   <div class="dash-card">
-    <div class="dash-label">Répartition sources</div>
-    <div class="dash-value" id="d-vie-count">—</div>
-    <div class="dash-sub">Business France</div>
-    <div class="dash-value" style="font-size:18px;margin-top:4px" id="d-wtj-count">—</div>
-    <div class="dash-sub">Welcome to the Jungle</div>
+    <div class="dash-label">Répartition</div>
+    <div class="dash-value" id="d-vie-count" style="font-size:20px">—</div>
+    <div class="dash-sub" style="margin-bottom:6px">🇫🇷 Business France</div>
+    <div class="dash-value" id="d-wtj-count" style="font-size:20px">—</div>
+    <div class="dash-sub">🌴 Welcome to the Jungle</div>
   </div>
   <div class="dash-card">
     <div class="dash-label">Top 3 pays</div>
-    <div class="dash-sub" id="d-top-countries">—</div>
+    <div class="dash-sub" id="d-top-countries" style="line-height:2">—</div>
   </div>
   <div class="dash-card">
     <div class="dash-label">Top 3 secteurs</div>
-    <div class="dash-sub" id="d-top-sectors">—</div>
+    <div class="dash-sub" id="d-top-sectors" style="line-height:2">—</div>
   </div>
 </div>
 
-<!-- ── TABS ───────────────────────────────────────────────────────────── -->
 <div class="tabs-bar">
   <button class="tab-btn active" id="tab-vie" onclick="switchTab('vie')">
     Business France <span class="tab-count" id="count-vie">—</span>
@@ -365,7 +268,6 @@
   </button>
 </div>
 
-<!-- ── TOOLBAR ────────────────────────────────────────────────────────── -->
 <div class="toolbar">
   <div class="filter-group">
     <label>Mot-clé poste</label>
@@ -373,7 +275,7 @@
   </div>
   <div class="filter-group">
     <label>Pays</label>
-    <input type="text" id="f-country" placeholder="Japon, USA…" oninput="applyFilters()">
+    <input type="text" id="f-country" placeholder="Japon, Allemagne…" oninput="applyFilters()">
   </div>
   <div class="filter-group">
     <label>Durée (mois)</label>
@@ -395,10 +297,9 @@
   <button class="btn-reset" onclick="resetFilters()">Réinitialiser</button>
 </div>
 
-<!-- ── ZONES GÉOGRAPHIQUES ────────────────────────────────────────────── -->
 <div class="zones-bar">
   <span class="zones-label">Zone</span>
-  <span class="zone-chip active" data-zone="" onclick="selectZone(this)">🌍 Toutes</span>
+  <span class="zone-chip active" data-zone="" onclick="selectZone(this)">🌐 Toutes</span>
   <span class="zone-chip" data-zone="europe" onclick="selectZone(this)">🇪🇺 Europe</span>
   <span class="zone-chip" data-zone="asie" onclick="selectZone(this)">🌏 Asie</span>
   <span class="zone-chip" data-zone="ameriques" onclick="selectZone(this)">🌎 Amériques</span>
@@ -407,31 +308,17 @@
   <span class="zone-chip" data-zone="oceanie" onclick="selectZone(this)">🌊 Océanie</span>
 </div>
 
-<!-- ── STATS + TRI ─────────────────────────────────────────────────────── -->
-<div class="stats-row">
-  <strong id="stat-count">—</strong> offres affichées
-</div>
+<div class="stats-row"><strong id="stat-count">—</strong> offres affichées</div>
 
 <div class="sort-row">
   <span class="sort-label">Trier par</span>
-  <button class="sort-btn active" data-sort="title" onclick="setSort('title', this)">
-    Poste <span class="sort-arrow" id="arrow-title">↑</span>
-  </button>
-  <button class="sort-btn" data-sort="company" onclick="setSort('company', this)">
-    Entreprise <span class="sort-arrow" id="arrow-company"></span>
-  </button>
-  <button class="sort-btn" data-sort="country" onclick="setSort('country', this)">
-    Pays <span class="sort-arrow" id="arrow-country"></span>
-  </button>
-  <button class="sort-btn" data-sort="sectors" onclick="setSort('sectors', this)">
-    Secteur <span class="sort-arrow" id="arrow-sectors"></span>
-  </button>
-  <button class="sort-btn" data-sort="duration_months" onclick="setSort('duration_months', this)">
-    Durée <span class="sort-arrow" id="arrow-duration_months"></span>
-  </button>
+  <button class="sort-btn active" data-sort="title" onclick="setSort('title',this)">Poste <span id="arrow-title">↑</span></button>
+  <button class="sort-btn" data-sort="company" onclick="setSort('company',this)">Entreprise <span id="arrow-company"></span></button>
+  <button class="sort-btn" data-sort="country" onclick="setSort('country',this)">Pays <span id="arrow-country"></span></button>
+  <button class="sort-btn" data-sort="sectors" onclick="setSort('sectors',this)">Secteur <span id="arrow-sectors"></span></button>
+  <button class="sort-btn" data-sort="duration_months" onclick="setSort('duration_months',this)">Durée <span id="arrow-duration_months"></span></button>
 </div>
 
-<!-- ── TABLE ──────────────────────────────────────────────────────────── -->
 <main>
   <div class="table-wrap">
     <table>
@@ -447,8 +334,7 @@
       <tbody id="offers-body">
         <tr><td colspan="5">
           <div class="table-placeholder">
-            <strong>Aucune donnée</strong>
-            Lance un scraping pour récupérer les offres.
+            <strong>Aucune donnée</strong>Lance un scraping pour récupérer les offres.
           </div>
         </td></tr>
       </tbody>
@@ -457,453 +343,411 @@
 </main>
 
 <script>
-  const API_BASE = "";
+const API_BASE = "";
 
-  // ── DONNÉES ────────────────────────────────────────────────────────────────
-  let vieOffers = [];
-  let wtjOffers = [];
-  let currentTab  = "vie";
-  let currentZone = "";
-  let currentSort = { key: "title", asc: true };
-  let pollInterval = null;
+let vieOffers = [], wtjOffers = [];
+let currentTab = "vie", currentZone = "";
+let currentSort = { key: "title", asc: true };
+let pollInterval = null;
 
-  // ── ZONES → PAYS ───────────────────────────────────────────────────────────
-  const ZONES = {
-    europe: ["france","allemagne","espagne","italie","royaume-uni","suisse","belgique",
-             "pays-bas","suède","norvège","danemark","finlande","pologne","portugal",
-             "autriche","grèce","irlande","tchéquie","hongrie","roumanie","ukraine",
-             "luxembourg","serbia","croatie","slovaquie","slovénie","bulgarie","lituanie",
-             "lettonie","estonie","islande","malte","chypre","albanie","macédoine",
-             "bosnie","monténégro","kosovo","moldavie","biélorussie","liechtenstein",
-             "andorre","monaco","saint-marin","vatikan","united kingdom","netherlands",
-             "sweden","norway","denmark","finland","poland","czech republic","austria",
-             "hungary","romania","switzerland","germany","spain","italy","greece",
-             "ireland","croatia","slovakia","slovenia","bulgaria","lithuania","latvia",
-             "estonia","iceland","belgium"],
-    asie: ["chine","japon","corée","inde","vietnam","thaïlande","singapour","malaisie",
-           "indonésie","philippines","taiwan","hong kong","myanmar","cambodge","laos",
-           "bangladesh","pakistan","sri lanka","népal","mongolie","kazakhstan","ouzbékistan",
-           "birmanie","china","japan","south korea","korea","india","thailand","singapore",
-           "malaysia","indonesia","taiwan","hong kong","vietnam","cambodia","myanmar"],
-    ameriques: ["états-unis","canada","mexique","brésil","argentine","colombie","chili",
-                "pérou","venezuela","équateur","bolivie","paraguay","uruguay","cuba",
-                "panama","costa rica","guatemala","honduras","el salvador","nicaragua",
-                "haïti","jamaïque","trinidad","usa","united states","brazil","argentina",
-                "colombia","chile","peru","mexico"],
-    afrique: ["maroc","algérie","tunisie","sénégal","côte d'ivoire","cameroun","kenya",
-              "afrique du sud","nigeria","ghana","ethiopie","tanzanie","ouganda","rwanda",
-              "mali","burkina faso","guinée","madagascar","mozambique","angola","zambie",
-              "zimbabwe","botswana","namibie","mauritanie","niger","tchad","south africa",
-              "nigeria","ethiopia","tanzania","egypt","egypte"],
-    "moyen-orient": ["arabie saoudite","émirats arabes unis","qatar","koweït","bahreïn","oman",
-                     "jordanie","liban","israël","turquie","iran","irak","yémen","syrie",
-                     "saudi arabia","uae","united arab emirates","qatar","kuwait","bahrain",
-                     "oman","jordan","lebanon","israel","turkey","iran"],
-    oceanie: ["australie","nouvelle-zélande","papua","fidji","australie","australia",
-              "new zealand","papua new guinea","fiji"]
-  };
+// ── SECTEURS → ICÔNES (alignés sur les labels normalisés du scraper) ─────────
+const SECTOR_ICONS = {
+  "informatique & tech":       "💻",
+  "finance & banque":          "💰",
+  "ingénierie & industrie":    "⚙️",
+  "commerce & vente":          "🤝",
+  "marketing & communication": "📣",
+  "supply chain & logistique": "📦",
+  "ressources humaines":       "👥",
+  "juridique & compliance":    "⚖️",
+  "conseil & stratégie":       "📊",
+  "énergie & environnement":   "🌱",
+  "santé & pharma":            "💊",
+  "aéronautique & défense":    "✈️",
+  "btp & immobilier":          "🏗️",
+  "agroalimentaire":           "🌾",
+  "luxe & mode":               "💎",
+  "tourisme & hôtellerie":     "🏨",
+  "éducation & recherche":     "🎓",
+};
 
-  // ── SECTEURS → ICÔNES ──────────────────────────────────────────────────────
-  const SECTOR_ICONS = {
-    "finance":        "💰",
-    "banque":         "🏦",
-    "assurance":      "🛡️",
-    "informatique":   "💻",
-    "numérique":      "💻",
-    "tech":           "💻",
-    "digital":        "💻",
-    "industrie":      "🏭",
-    "manufacturing":  "🏭",
-    "énergie":        "⚡",
-    "environnement":  "🌱",
-    "santé":          "🏥",
-    "pharma":         "💊",
-    "agroalimentaire":"🌾",
-    "agriculture":    "🌾",
-    "commerce":       "🛍️",
-    "retail":         "🛍️",
-    "luxe":           "💎",
-    "mode":           "👗",
-    "transport":      "🚢",
-    "logistique":     "📦",
-    "aéronautique":   "✈️",
-    "aérospatial":    "🚀",
-    "défense":        "🛡️",
-    "conseil":        "📊",
-    "audit":          "📊",
-    "marketing":      "📣",
-    "communication":  "📣",
-    "media":          "📺",
-    "presse":         "📰",
-    "immobilier":     "🏢",
-    "construction":   "🔨",
-    "btp":            "🔨",
-    "rh":             "👥",
-    "juridique":      "⚖️",
-    "droit":          "⚖️",
-    "recherche":      "🔬",
-    "ingénierie":     "⚙️",
-    "chimie":         "🧪",
-    "tourisme":       "✈️",
-    "hôtellerie":     "🏨",
-    "restauration":   "🍽️",
-    "éducation":      "🎓",
-    "formation":      "🎓",
-    "culture":        "🎭",
-    "sport":          "⚽",
-    "ong":            "🤝",
-    "humanitaire":    "🤝",
-    "public":         "🏛️",
-    "institution":    "🏛️",
-  };
+function getSectorIcon(sector) {
+  if (!sector) return "📁";
+  const low = sector.toLowerCase();
+  return SECTOR_ICONS[low] || "📁";
+}
 
-  // ── DRAPEAUX ───────────────────────────────────────────────────────────────
-  const FLAGS = {
-    "france":"🇫🇷","allemagne":"🇩🇪","espagne":"🇪🇸","italie":"🇮🇹","royaume-uni":"🇬🇧",
-    "united kingdom":"🇬🇧","suisse":"🇨🇭","belgique":"🇧🇪","pays-bas":"🇳🇱","netherlands":"🇳🇱",
-    "suède":"🇸🇪","sweden":"🇸🇪","norvège":"🇳🇴","norway":"🇳🇴","danemark":"🇩🇰","denmark":"🇩🇰",
-    "finlande":"🇫🇮","finland":"🇫🇮","pologne":"🇵🇱","poland":"🇵🇱","portugal":"🇵🇹",
-    "autriche":"🇦🇹","austria":"🇦🇹","grèce":"🇬🇷","greece":"🇬🇷","irlande":"🇮🇪","ireland":"🇮🇪",
-    "tchéquie":"🇨🇿","czech republic":"🇨🇿","hongrie":"🇭🇺","hungary":"🇭🇺","roumanie":"🇷🇴",
-    "romania":"🇷🇴","luxembourg":"🇱🇺","croatie":"🇭🇷","croatia":"🇭🇷","bulgarie":"🇧🇬",
-    "chine":"🇨🇳","china":"🇨🇳","japon":"🇯🇵","japan":"🇯🇵","corée du sud":"🇰🇷","south korea":"🇰🇷",
-    "inde":"🇮🇳","india":"🇮🇳","vietnam":"🇻🇳","thaïlande":"🇹🇭","thailand":"🇹🇭",
-    "singapour":"🇸🇬","singapore":"🇸🇬","malaisie":"🇲🇾","malaysia":"🇲🇾","indonésie":"🇮🇩",
-    "indonesia":"🇮🇩","philippines":"🇵🇭","taiwan":"🇹🇼","hong kong":"🇭🇰",
-    "états-unis":"🇺🇸","usa":"🇺🇸","united states":"🇺🇸","canada":"🇨🇦","mexique":"🇲🇽",
-    "mexico":"🇲🇽","brésil":"🇧🇷","brazil":"🇧🇷","argentine":"🇦🇷","argentina":"🇦🇷",
-    "colombie":"🇨🇴","colombia":"🇨🇴","chili":"🇨🇱","chile":"🇨🇱","pérou":"🇵🇪","peru":"🇵🇪",
-    "maroc":"🇲🇦","algérie":"🇩🇿","tunisie":"🇹🇳","sénégal":"🇸🇳","côte d'ivoire":"🇨🇮",
-    "cameroun":"🇨🇲","kenya":"🇰🇪","afrique du sud":"🇿🇦","south africa":"🇿🇦",
-    "nigeria":"🇳🇬","ghana":"🇬🇭","ethiopie":"🇪🇹","egypt":"🇪🇬","egypte":"🇪🇬",
-    "arabie saoudite":"🇸🇦","saudi arabia":"🇸🇦","émirats arabes unis":"🇦🇪","uae":"🇦🇪",
-    "united arab emirates":"🇦🇪","qatar":"🇶🇦","koweït":"🇰🇼","kuwait":"🇰🇼",
-    "jordanie":"🇯🇴","jordan":"🇯🇴","liban":"🇱🇧","lebanon":"🇱🇧","israël":"🇮🇱","israel":"🇮🇱",
-    "turquie":"🇹🇷","turkey":"🇹🇷","australie":"🇦🇺","australia":"🇦🇺",
-    "nouvelle-zélande":"🇳🇿","new zealand":"🇳🇿",
-  };
+// ── DRAPEAUX — clé en minuscules, couvre FR et EN, majuscules gérées au lookup ─
+const FLAGS = {
+  // Europe
+  "france":"🇫🇷","allemagne":"🇩🇪","germany":"🇩🇪","espagne":"🇪🇸","spain":"🇪🇸",
+  "italie":"🇮🇹","italy":"🇮🇹","royaume-uni":"🇬🇧","united kingdom":"🇬🇧","uk":"🇬🇧",
+  "suisse":"🇨🇭","switzerland":"🇨🇭","belgique":"🇧🇪","belgium":"🇧🇪",
+  "pays-bas":"🇳🇱","netherlands":"🇳🇱","hollande":"🇳🇱",
+  "suède":"🇸🇪","sweden":"🇸🇪","norvège":"🇳🇴","norway":"🇳🇴",
+  "danemark":"🇩🇰","denmark":"🇩🇰","finlande":"🇫🇮","finland":"🇫🇮",
+  "pologne":"🇵🇱","poland":"🇵🇱","portugal":"🇵🇹",
+  "autriche":"🇦🇹","austria":"🇦🇹","grèce":"🇬🇷","greece":"🇬🇷",
+  "irlande":"🇮🇪","ireland":"🇮🇪","tchéquie":"🇨🇿","czech republic":"🇨🇿",
+  "hongrie":"🇭🇺","hungary":"🇭🇺","roumanie":"🇷🇴","romania":"🇷🇴",
+  "luxembourg":"🇱🇺","croatie":"🇭🇷","croatia":"🇭🇷","bulgarie":"🇧🇬","bulgaria":"🇧🇬",
+  "slovaquie":"🇸🇰","slovakia":"🇸🇰","slovénie":"🇸🇮","slovenia":"🇸🇮",
+  "lituanie":"🇱🇹","lithuania":"🇱🇹","lettonie":"🇱🇻","latvia":"🇱🇻",
+  "estonie":"🇪🇪","estonia":"🇪🇪","islande":"🇮🇸","iceland":"🇮🇸",
+  "serbie":"🇷🇸","serbia":"🇷🇸","ukraine":"🇺🇦","moldavie":"🇲🇩","moldova":"🇲🇩",
+  "malte":"🇲🇹","malta":"🇲🇹","chypre":"🇨🇾","cyprus":"🇨🇾",
+  "monténégro":"🇲🇪","montenegro":"🇲🇪","albanie":"🇦🇱","albania":"🇦🇱",
+  "bosnie":"🇧🇦","macédoine":"🇲🇰","liechtenstein":"🇱🇮","andorre":"🇦🇩",
+  "monaco":"🇲🇨","biélorussie":"🇧🇾","belarus":"🇧🇾",
+  // Asie
+  "chine":"🇨🇳","china":"🇨🇳","japon":"🇯🇵","japan":"🇯🇵",
+  "corée du sud":"🇰🇷","south korea":"🇰🇷","korea":"🇰🇷","corée":"🇰🇷",
+  "inde":"🇮🇳","india":"🇮🇳","vietnam":"🇻🇳","viet nam":"🇻🇳",
+  "thaïlande":"🇹🇭","thailand":"🇹🇭","singapour":"🇸🇬","singapore":"🇸🇬",
+  "malaisie":"🇲🇾","malaysia":"🇲🇾","indonésie":"🇮🇩","indonesia":"🇮🇩",
+  "philippines":"🇵🇭","taiwan":"🇹🇼","hong kong":"🇭🇰","myanmar":"🇲🇲",
+  "cambodge":"🇰🇭","cambodia":"🇰🇭","laos":"🇱🇦","bangladesh":"🇧🇩",
+  "pakistan":"🇵🇰","sri lanka":"🇱🇰","népal":"🇳🇵","nepal":"🇳🇵",
+  "mongolie":"🇲🇳","mongolia":"🇲🇳","kazakhstan":"🇰🇿","ouzbékistan":"🇺🇿","uzbekistan":"🇺🇿",
+  // Amériques
+  "états-unis":"🇺🇸","etats-unis":"🇺🇸","usa":"🇺🇸","united states":"🇺🇸","u.s.a.":"🇺🇸",
+  "canada":"🇨🇦","mexique":"🇲🇽","mexico":"🇲🇽",
+  "brésil":"🇧🇷","bresil":"🇧🇷","brazil":"🇧🇷",
+  "argentine":"🇦🇷","argentina":"🇦🇷","colombie":"🇨🇴","colombia":"🇨🇴",
+  "chili":"🇨🇱","chile":"🇨🇱","pérou":"🇵🇪","perou":"🇵🇪","peru":"🇵🇪",
+  "venezuela":"🇻🇪","équateur":"🇪🇨","ecuador":"🇪🇨","bolivie":"🇧🇴","bolivia":"🇧🇴",
+  "paraguay":"🇵🇾","uruguay":"🇺🇾","cuba":"🇨🇺","panama":"🇵🇦",
+  "costa rica":"🇨🇷","guatemala":"🇬🇹","honduras":"🇭🇳",
+  // Afrique
+  "maroc":"🇲🇦","morocco":"🇲🇦","algérie":"🇩🇿","algerie":"🇩🇿","algeria":"🇩🇿",
+  "tunisie":"🇹🇳","tunisia":"🇹🇳","sénégal":"🇸🇳","senegal":"🇸🇳",
+  "côte d'ivoire":"🇨🇮","cote d'ivoire":"🇨🇮","ivory coast":"🇨🇮",
+  "cameroun":"🇨🇲","cameroon":"🇨🇲","kenya":"🇰🇪",
+  "afrique du sud":"🇿🇦","south africa":"🇿🇦","nigeria":"🇳🇬",
+  "ghana":"🇬🇭","éthiopie":"🇪🇹","ethiopie":"🇪🇹","ethiopia":"🇪🇹",
+  "tanzanie":"🇹🇿","tanzania":"🇹🇿","ouganda":"🇺🇬","uganda":"🇺🇬",
+  "rwanda":"🇷🇼","mali":"🇲🇱","burkina faso":"🇧🇫","guinée":"🇬🇳","guinea":"🇬🇳",
+  "madagascar":"🇲🇬","mozambique":"🇲🇿","angola":"🇦🇴","zambie":"🇿🇲","zambia":"🇿🇲",
+  "egypte":"🇪🇬","égypte":"🇪🇬","egypt":"🇪🇬","libye":"🇱🇾","libya":"🇱🇾",
+  "mauritanie":"🇲🇷","mauritania":"🇲🇷","niger":"🇳🇪","tchad":"🇹🇩","chad":"🇹🇩",
+  // Moyen-Orient
+  "arabie saoudite":"🇸🇦","saudi arabia":"🇸🇦",
+  "émirats arabes unis":"🇦🇪","emirats arabes unis":"🇦🇪","uae":"🇦🇪","united arab emirates":"🇦🇪",
+  "qatar":"🇶🇦","koweït":"🇰🇼","koweit":"🇰🇼","kuwait":"🇰🇼",
+  "bahreïn":"🇧🇭","bahrein":"🇧🇭","bahrain":"🇧🇭","oman":"🇴🇲",
+  "jordanie":"🇯🇴","jordan":"🇯🇴","liban":"🇱🇧","lebanon":"🇱🇧",
+  "israël":"🇮🇱","israel":"🇮🇱","turquie":"🇹🇷","turkey":"🇹🇷",
+  "iran":"🇮🇷","irak":"🇮🇶","iraq":"🇮🇶","yémen":"🇾🇪","yemen":"🇾🇪",
+  // Océanie
+  "australie":"🇦🇺","australia":"🇦🇺","nouvelle-zélande":"🇳🇿","new zealand":"🇳🇿",
+  "papouasie":"🇵🇬","papua new guinea":"🇵🇬","fidji":"🇫🇯","fiji":"🇫🇯",
+};
 
-  function getFlag(country) {
-    return FLAGS[(country || "").toLowerCase()] || "🏳️";
+function getFlag(country) {
+  // Normalise : minuscules, supprime accents superflus
+  const low = (country || "").toLowerCase().trim();
+  // Recherche directe
+  if (FLAGS[low]) return FLAGS[low];
+  // Recherche partielle (ex: "ALLEMAGNE" → "allemagne" déjà géré, mais aussi "Rep. Tchèque")
+  for (const [key, flag] of Object.entries(FLAGS)) {
+    if (low.includes(key) || key.includes(low)) return flag;
   }
+  return "🏳️";
+}
 
-  function getSectorIcon(sector) {
-    if (!sector) return "📁";
-    const low = sector.toLowerCase();
-    for (const [key, icon] of Object.entries(SECTOR_ICONS)) {
-      if (low.includes(key)) return icon;
-    }
-    return "📁";
-  }
+// ── ZONES → PAYS (minuscules) ─────────────────────────────────────────────────
+const ZONES = {
+  europe: ["france","allemagne","germany","espagne","spain","italie","italy","royaume-uni",
+           "united kingdom","suisse","switzerland","belgique","belgium","pays-bas","netherlands",
+           "suède","sweden","norvège","norway","danemark","denmark","finlande","finland",
+           "pologne","poland","portugal","autriche","austria","grèce","greece","irlande","ireland",
+           "tchéquie","czech","hongrie","hungary","roumanie","romania","luxembourg","croatie",
+           "croatia","bulgarie","bulgaria","slovaquie","slovakia","slovénie","slovenia",
+           "lituanie","lettonie","estonie","islande","serbie","serbia","ukraine","malte","chypre",
+           "monténégro","albanie","bosnie","macédoine","biélorussie","andorre","monaco",
+           "liechtenstein","moldavie","saarbrucken","barcelone","berlin","madrid","rome",
+           "amsterdam","bruxelles","varsovie","vienne","budapest","bucarest","prague","helsinki",
+           "copenhague","oslo","stockholm","dublin","athens","lisbonne","luxembourg city"],
+  asie: ["chine","china","japon","japan","corée","korea","inde","india","vietnam","thaïlande",
+         "thailand","singapour","singapore","malaisie","malaysia","indonésie","indonesia",
+         "philippines","taiwan","hong kong","myanmar","cambodge","laos","bangladesh","pakistan",
+         "sri lanka","népal","mongolie","kazakhstan","ouzbékistan","uzbekistan","tokyo","pékin",
+         "beijing","shanghai","séoul","seoul","bangkok","jakarta","manille","kuala lumpur",
+         "ho chi minh","hanoi","yangon","phnom penh"],
+  ameriques: ["états-unis","etats-unis","usa","united states","canada","mexique","mexico",
+              "brésil","bresil","brazil","argentine","argentina","colombie","colombia",
+              "chili","chile","pérou","perou","peru","venezuela","équateur","ecuador",
+              "bolivie","bolivia","paraguay","uruguay","cuba","panama","costa rica",
+              "guatemala","honduras","new york","los angeles","san francisco","chicago",
+              "toronto","montreal","vancouver","mexico city","sao paulo","rio","bogota",
+              "lima","santiago","buenos aires"],
+  afrique: ["maroc","morocco","algérie","algerie","algeria","tunisie","tunisia","sénégal",
+            "senegal","côte d'ivoire","cote d'ivoire","ivory coast","cameroun","cameroon",
+            "kenya","afrique du sud","south africa","nigeria","ghana","éthiopie","ethiopie",
+            "ethiopia","tanzanie","tanzania","ouganda","rwanda","mali","burkina","guinée",
+            "madagascar","mozambique","angola","zambie","egypte","égypte","egypt","libye",
+            "mauritanie","niger","tchad","casablanca","dakar","abidjan","nairobi","accra",
+            "tunis","alger","douala","kampala","dar es salaam","addis abeba","kigali","bamako"],
+  "moyen-orient": ["arabie saoudite","saudi","émirats","emirats","uae","qatar","koweït","koweit",
+                   "kuwait","bahreïn","bahrein","bahrain","oman","jordanie","jordan","liban",
+                   "lebanon","israël","israel","turquie","turkey","iran","irak","iraq","yémen",
+                   "riyadh","dubai","abu dhabi","doha","manama","muscat","amman","beyrouth",
+                   "beirut","tel aviv","ankara","istanbul","tehran"],
+  oceanie: ["australie","australia","nouvelle-zélande","new zealand","papouasie","papua",
+            "fidji","fiji","sydney","melbourne","auckland","perth","brisbane"],
+};
 
-  function getZoneForCountry(country) {
-    const low = (country || "").toLowerCase();
-    for (const [zone, countries] of Object.entries(ZONES)) {
-      if (countries.some(c => low.includes(c) || c.includes(low))) return zone;
-    }
-    return "";
-  }
+function inZone(country, zone) {
+  if (!zone) return true;
+  const low = (country || "").toLowerCase();
+  return (ZONES[zone] || []).some(k => low.includes(k) || k.includes(low));
+}
 
-  // ── INIT ───────────────────────────────────────────────────────────────────
-  window.addEventListener("DOMContentLoaded", loadOffers);
+// ── INIT ─────────────────────────────────────────────────────────────────────
+window.addEventListener("DOMContentLoaded", loadOffers);
 
-  // ── CHARGEMENT ─────────────────────────────────────────────────────────────
-  async function loadOffers() {
-    showSkeletons();
-    try {
-      const res = await fetch(`${API_BASE}/api/offers?limit=2000`);
-      if (!res.ok) throw new Error();
-      const data = await res.json();
-      const all = data.offers || [];
+async function loadOffers() {
+  showSkeletons();
+  try {
+    const res = await fetch(`${API_BASE}/api/offers?limit=2000`);
+    if (!res.ok) throw new Error();
+    const data = await res.json();
+    const all = data.offers || [];
 
-      vieOffers = all.filter(o => o.source.includes("Business France") || o.source.includes("VIE"));
-      wtjOffers = all.filter(o => o.source.includes("Welcome") || o.source.includes("WTJ"));
+    vieOffers = all.filter(o => o.source.includes("Business France") || o.source.includes("VIE"));
+    wtjOffers = all.filter(o => o.source.includes("Welcome") || o.source.includes("WTJ"));
 
-      document.getElementById("count-vie").textContent = vieOffers.length.toLocaleString("fr-FR");
-      document.getElementById("count-wtj").textContent = wtjOffers.length.toLocaleString("fr-FR");
+    document.getElementById("count-vie").textContent = vieOffers.length.toLocaleString("fr-FR");
+    document.getElementById("count-wtj").textContent = wtjOffers.length.toLocaleString("fr-FR");
 
-      updateDashboard(all);
-      populateSectorFilter(currentTab === "vie" ? vieOffers : wtjOffers);
-      applyFilters();
-      loadMeta();
-    } catch {
-      showEmpty("Aucune donnée disponible", "Lance un scraping pour récupérer les offres.");
-      document.getElementById("stat-count").textContent = "—";
-    }
-  }
-
-  async function loadMeta() {
-    try {
-      const res = await fetch(`${API_BASE}/api/stats`);
-      if (!res.ok) return;
-      const data = await res.json();
-      if (data.exported_at) {
-        const d = new Date(data.exported_at);
-        document.getElementById("last-update").textContent =
-          "Mis à jour le " + d.toLocaleDateString("fr-FR", {
-            day: "numeric", month: "short", hour: "2-digit", minute: "2-digit"
-          });
-      }
-    } catch {}
-  }
-
-  // ── DASHBOARD ──────────────────────────────────────────────────────────────
-  function updateDashboard(all) {
-    const vie = all.filter(o => o.source.includes("Business France") || o.source.includes("VIE")).length;
-    const wtj = all.length - vie;
-
-    document.getElementById("d-total").textContent = all.length.toLocaleString("fr-FR");
-    document.getElementById("d-vie-count").textContent = vie.toLocaleString("fr-FR");
-    document.getElementById("d-wtj-count").textContent = wtj.toLocaleString("fr-FR");
-
-    // Barre de répartition
-    if (all.length) {
-      const viePct = Math.round(vie / all.length * 100);
-      document.getElementById("d-bar").innerHTML = `
-        <div class="dash-bar-seg" style="width:${viePct}%;background:#2563eb;opacity:0.7"></div>
-        <div class="dash-bar-seg" style="width:${100-viePct}%;background:#16a34a;opacity:0.7"></div>`;
-      document.getElementById("d-sources").innerHTML =
-        `<span style="color:#2563eb">■ BF ${viePct}%</span>` +
-        `<span style="color:#16a34a">■ WTJ ${100-viePct}%</span>`;
-    }
-
-    // Top 3 pays
-    const countryCount = {};
-    for (const o of all) {
-      const c = o.country || "Inconnu";
-      countryCount[c] = (countryCount[c] || 0) + 1;
-    }
-    const top3Countries = Object.entries(countryCount)
-      .sort((a, b) => b[1] - a[1]).slice(0, 3);
-    document.getElementById("d-top-countries").innerHTML = top3Countries
-      .map(([c, n]) => `<span>${getFlag(c)} ${c} <strong style="color:var(--text)">${n}</strong></span>`)
-      .join("<br>");
-
-    // Top 3 secteurs
-    const sectorCount = {};
-    for (const o of all) {
-      const s = o.sectors ? o.sectors.split(" > ")[0].trim() : null;
-      if (s) sectorCount[s] = (sectorCount[s] || 0) + 1;
-    }
-    const top3Sectors = Object.entries(sectorCount)
-      .sort((a, b) => b[1] - a[1]).slice(0, 3);
-    document.getElementById("d-top-sectors").innerHTML = top3Sectors
-      .map(([s, n]) => `<span>${getSectorIcon(s)} ${s} <strong style="color:var(--text)">${n}</strong></span>`)
-      .join("<br>");
-  }
-
-  // ── ONGLETS ────────────────────────────────────────────────────────────────
-  function switchTab(tab) {
-    currentTab = tab;
-    document.getElementById("tab-vie").classList.toggle("active", tab === "vie");
-    document.getElementById("tab-wtj").classList.toggle("active", tab === "wtj");
-    populateSectorFilter(tab === "vie" ? vieOffers : wtjOffers);
-    resetFilters(false);
+    updateDashboard(all);
+    populateSectorFilter(currentTab === "vie" ? vieOffers : wtjOffers);
     applyFilters();
+    loadMeta();
+  } catch {
+    showEmpty("Aucune donnée disponible", "Lance un scraping pour récupérer les offres.");
+    document.getElementById("stat-count").textContent = "—";
   }
+}
 
-  // ── ZONES ──────────────────────────────────────────────────────────────────
-  function selectZone(el) {
-    document.querySelectorAll(".zone-chip").forEach(c => c.classList.remove("active"));
-    el.classList.add("active");
-    currentZone = el.dataset.zone;
-    applyFilters();
-  }
-
-  // ── TRI ────────────────────────────────────────────────────────────────────
-  function setSort(key, btn) {
-    if (currentSort.key === key) {
-      currentSort.asc = !currentSort.asc;
-    } else {
-      currentSort = { key, asc: true };
+async function loadMeta() {
+  try {
+    const res = await fetch(`${API_BASE}/api/stats`);
+    if (!res.ok) return;
+    const data = await res.json();
+    if (data.exported_at) {
+      const d = new Date(data.exported_at);
+      document.getElementById("last-update").textContent =
+        "Mis à jour le " + d.toLocaleDateString("fr-FR", {
+          day: "numeric", month: "short", hour: "2-digit", minute: "2-digit"
+        });
     }
+  } catch {}
+}
 
-    // Mise à jour visuelle des boutons
-    document.querySelectorAll(".sort-btn").forEach(b => {
-      b.classList.remove("active");
-      const arrow = b.querySelector(".sort-arrow");
-      if (arrow) arrow.textContent = "";
+// ── DASHBOARD ─────────────────────────────────────────────────────────────────
+function updateDashboard(all) {
+  const vie = vieOffers.length, wtj = wtjOffers.length;
+  document.getElementById("d-total").textContent = all.length.toLocaleString("fr-FR");
+  document.getElementById("d-vie-count").textContent = vie.toLocaleString("fr-FR");
+  document.getElementById("d-wtj-count").textContent = wtj.toLocaleString("fr-FR");
+
+  if (all.length) {
+    const viePct = Math.round(vie / all.length * 100);
+    document.getElementById("d-bar").innerHTML =
+      `<div class="dash-bar-seg" style="width:${viePct}%;background:#2563eb;opacity:.7"></div>
+       <div class="dash-bar-seg" style="width:${100-viePct}%;background:#16a34a;opacity:.7"></div>`;
+    document.getElementById("d-sources").innerHTML =
+      `<span style="color:#2563eb">■ BF ${viePct}%</span>  <span style="color:#16a34a">■ WTJ ${100-viePct}%</span>`;
+  }
+
+  // Top pays
+  const byCountry = {};
+  for (const o of all) { const c = o.country||"—"; byCountry[c]=(byCountry[c]||0)+1; }
+  const top3c = Object.entries(byCountry).sort((a,b)=>b[1]-a[1]).slice(0,3);
+  document.getElementById("d-top-countries").innerHTML = top3c
+    .map(([c,n]) => `<span>${getFlag(c)} ${c} <strong>${n}</strong></span>`).join("<br>");
+
+  // Top secteurs
+  const bySector = {};
+  for (const o of all) {
+    const s = o.sectors ? o.sectors.split(">")[0].trim() : null;
+    if (s) bySector[s]=(bySector[s]||0)+1;
+  }
+  const top3s = Object.entries(bySector).sort((a,b)=>b[1]-a[1]).slice(0,3);
+  document.getElementById("d-top-sectors").innerHTML = top3s
+    .map(([s,n]) => `<span>${getSectorIcon(s)} ${s} <strong>${n}</strong></span>`).join("<br>");
+}
+
+// ── ONGLETS ───────────────────────────────────────────────────────────────────
+function switchTab(tab) {
+  currentTab = tab;
+  document.getElementById("tab-vie").classList.toggle("active", tab === "vie");
+  document.getElementById("tab-wtj").classList.toggle("active", tab === "wtj");
+  populateSectorFilter(tab === "vie" ? vieOffers : wtjOffers);
+  resetFilters(false);
+  applyFilters();
+}
+
+// ── ZONES ─────────────────────────────────────────────────────────────────────
+function selectZone(el) {
+  document.querySelectorAll(".zone-chip").forEach(c => c.classList.remove("active"));
+  el.classList.add("active");
+  currentZone = el.dataset.zone;
+  applyFilters();
+}
+
+// ── TRI ───────────────────────────────────────────────────────────────────────
+function setSort(key, btn) {
+  currentSort = { key, asc: currentSort.key === key ? !currentSort.asc : true };
+  document.querySelectorAll(".sort-btn").forEach(b => {
+    b.classList.remove("active");
+    const a = b.querySelector("span"); if (a) a.textContent = "";
+  });
+  btn.classList.add("active");
+  const arrow = document.getElementById(`arrow-${key}`);
+  if (arrow) arrow.textContent = currentSort.asc ? "↑" : "↓";
+  applyFilters();
+}
+
+// ── SECTEURS DYNAMIQUES ───────────────────────────────────────────────────────
+function populateSectorFilter(offers) {
+  const sectors = new Set();
+  for (const o of offers) {
+    if (o.sectors) {
+      const top = o.sectors.split(">")[0].trim();
+      if (top) sectors.add(top);
+    }
+  }
+  const sel = document.getElementById("f-sector");
+  const current = sel.value;
+  sel.innerHTML = `<option value="">Tous les secteurs</option>` +
+    [...sectors].sort().map(s =>
+      `<option value="${escHtml(s)}" ${s===current?"selected":""}>${getSectorIcon(s)} ${escHtml(s)}</option>`
+    ).join("");
+}
+
+// ── FILTRES ───────────────────────────────────────────────────────────────────
+function applyFilters() {
+  const keyword  = document.getElementById("f-keyword").value.toLowerCase().trim();
+  const country  = document.getElementById("f-country").value.toLowerCase().trim();
+  const duration = document.getElementById("f-duration").value;
+  const sector   = document.getElementById("f-sector").value.toLowerCase();
+
+  let filtered = currentTab === "vie" ? [...vieOffers] : [...wtjOffers];
+
+  if (keyword)  filtered = filtered.filter(o => o.title.toLowerCase().includes(keyword));
+  if (country)  filtered = filtered.filter(o => (o.country||"").toLowerCase().includes(country));
+  if (duration) filtered = filtered.filter(o => o.duration_months && String(o.duration_months).includes(duration));
+  if (sector)   filtered = filtered.filter(o => (o.sectors||"").toLowerCase().includes(sector));
+  if (currentZone) filtered = filtered.filter(o => inZone(o.country, currentZone));
+
+  // Tri
+  const { key, asc } = currentSort;
+  filtered.sort((a, b) => {
+    if (key === "duration_months") {
+      const va = parseInt(a[key])||0, vb = parseInt(b[key])||0;
+      return asc ? va-vb : vb-va;
+    }
+    const va = (a[key]||"").toLowerCase(), vb = (b[key]||"").toLowerCase();
+    return asc ? va.localeCompare(vb,"fr") : vb.localeCompare(va,"fr");
+  });
+
+  renderTable(filtered);
+  document.getElementById("stat-count").textContent = filtered.length.toLocaleString("fr-FR");
+}
+
+function resetFilters(andApply = true) {
+  document.getElementById("f-keyword").value = "";
+  document.getElementById("f-country").value = "";
+  document.getElementById("f-duration").selectedIndex = 0;
+  document.getElementById("f-sector").selectedIndex = 0;
+  if (andApply) applyFilters();
+}
+
+// ── RENDU ─────────────────────────────────────────────────────────────────────
+function renderTable(offers) {
+  if (!offers.length) { showEmpty("Aucun résultat", "Essaie d'autres filtres."); return; }
+
+  document.getElementById("offers-body").innerHTML = offers.map(o => {
+    const flag     = getFlag(o.country);
+    const location = [o.city, o.country].filter(Boolean).join(", ");
+    const sector   = o.sectors ? o.sectors.split(">")[0].trim() : null;
+    const icon     = getSectorIcon(sector);
+
+    return `<tr>
+      <td class="td-title">
+        <a href="${o.link||'#'}" target="_blank" rel="noopener">${escHtml(o.title)}</a>
+        <div class="td-company">${escHtml(o.company)}</div>
+      </td>
+      <td class="td-location">${flag} ${escHtml(location||"—")}</td>
+      <td class="td-muted">${o.duration_months ? escHtml(String(o.duration_months))+" mois" : "—"}</td>
+      <td class="td-sector">${sector ? `${icon} ${escHtml(sector)}` : "—"}</td>
+      <td class="td-salary">${o.salary ? escHtml(o.salary) : "—"}</td>
+    </tr>`;
+  }).join("");
+}
+
+// ── SCRAPING ─────────────────────────────────────────────────────────────────
+async function startScraping() {
+  const btn = document.getElementById("btn-scrape");
+  btn.disabled = true; btn.classList.add("running");
+  document.getElementById("btn-label").textContent = "Scraping en cours…";
+  setStatus("info", "Scraping lancé — durée estimée : 1 à 2 minutes…");
+  try {
+    const res = await fetch(`${API_BASE}/api/scrape`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ source: "all" })
     });
-    btn.classList.add("active");
-    const arrow = document.getElementById(`arrow-${key}`);
-    if (arrow) arrow.textContent = currentSort.asc ? "↑" : "↓";
-
-    applyFilters();
+    if (res.status === 409) setStatus("info", "Un scraping est déjà en cours, patience…");
+    else if (!res.ok) throw new Error();
+    pollInterval = setInterval(pollStatus, 5000);
+  } catch {
+    setStatus("error", "Impossible de joindre l'API. Vérifiez que api.py est lancé.");
+    resetBtn();
   }
+}
 
-  // ── SECTEUR DYNAMIQUE ──────────────────────────────────────────────────────
-  function populateSectorFilter(offers) {
-    const sectors = new Set();
-    for (const o of offers) {
-      if (o.sectors) {
-        const top = o.sectors.split(" > ")[0].trim();
-        if (top) sectors.add(top);
+async function pollStatus() {
+  try {
+    const res = await fetch(`${API_BASE}/api/status`);
+    const data = await res.json();
+    if (!data.running) {
+      clearInterval(pollInterval); pollInterval = null;
+      if (data.success === true) {
+        setStatus("success", `Scraping terminé — ${data.total_offers} offres récupérées`);
+        await loadOffers();
+      } else if (data.success === false) {
+        setStatus("error", `Erreur : ${data.error}`);
       }
-    }
-    const sel = document.getElementById("f-sector");
-    const current = sel.value;
-    sel.innerHTML = `<option value="">Tous les secteurs</option>` +
-      [...sectors].sort().map(s =>
-        `<option value="${escHtml(s)}" ${s === current ? "selected" : ""}>${getSectorIcon(s)} ${escHtml(s)}</option>`
-      ).join("");
-  }
-
-  // ── FILTRES + TRI ──────────────────────────────────────────────────────────
-  function applyFilters() {
-    const keyword  = document.getElementById("f-keyword").value.toLowerCase().trim();
-    const country  = document.getElementById("f-country").value.toLowerCase().trim();
-    const duration = document.getElementById("f-duration").value;
-    const sector   = document.getElementById("f-sector").value.toLowerCase();
-
-    let filtered = currentTab === "vie" ? [...vieOffers] : [...wtjOffers];
-
-    if (keyword)  filtered = filtered.filter(o => o.title.toLowerCase().includes(keyword));
-    if (country)  filtered = filtered.filter(o => (o.country || "").toLowerCase().includes(country));
-    if (duration) filtered = filtered.filter(o => o.duration_months && String(o.duration_months).includes(duration));
-    if (sector)   filtered = filtered.filter(o => (o.sectors || "").toLowerCase().includes(sector));
-
-    // Filtre zone géographique
-    if (currentZone) {
-      const zoneCountries = ZONES[currentZone] || [];
-      filtered = filtered.filter(o => {
-        const low = (o.country || "").toLowerCase();
-        return zoneCountries.some(c => low.includes(c) || c.includes(low));
-      });
-    }
-
-    // Tri
-    const { key, asc } = currentSort;
-    filtered.sort((a, b) => {
-      let va = (a[key] || "").toString().toLowerCase();
-      let vb = (b[key] || "").toString().toLowerCase();
-      if (key === "duration_months") {
-        va = parseInt(a[key]) || 0;
-        vb = parseInt(b[key]) || 0;
-        return asc ? va - vb : vb - va;
-      }
-      return asc ? va.localeCompare(vb, "fr") : vb.localeCompare(va, "fr");
-    });
-
-    renderTable(filtered);
-    document.getElementById("stat-count").textContent = filtered.length.toLocaleString("fr-FR");
-  }
-
-  function resetFilters(andApply = true) {
-    document.getElementById("f-keyword").value = "";
-    document.getElementById("f-country").value = "";
-    document.getElementById("f-duration").selectedIndex = 0;
-    document.getElementById("f-sector").selectedIndex = 0;
-    if (andApply) applyFilters();
-  }
-
-  // ── RENDU TABLE ────────────────────────────────────────────────────────────
-  function renderTable(offers) {
-    if (!offers.length) {
-      showEmpty("Aucun résultat", "Essaie d'autres filtres.");
-      return;
-    }
-    document.getElementById("offers-body").innerHTML = offers.map(o => {
-      const flag   = getFlag(o.country);
-      const location = [o.city, o.country].filter(Boolean).join(", ");
-      const sector = o.sectors ? o.sectors.split(" > ")[0] : null;
-      const icon   = getSectorIcon(sector);
-
-      return `<tr>
-        <td class="td-title">
-          <a href="${o.link || '#'}" target="_blank" rel="noopener">${escHtml(o.title)}</a>
-          <div class="td-company">${escHtml(o.company)}</div>
-        </td>
-        <td class="td-location">
-          <span class="td-flag">${flag}</span>${escHtml(location || "—")}
-        </td>
-        <td class="td-muted">${o.duration_months ? escHtml(String(o.duration_months)) + " mois" : "—"}</td>
-        <td class="td-sector">
-          ${sector ? `<span class="sector-icon">${icon}</span>${escHtml(sector)}` : "—"}
-        </td>
-        <td class="td-salary">${o.salary ? escHtml(o.salary) : "—"}</td>
-      </tr>`;
-    }).join("");
-  }
-
-  // ── SCRAPING ───────────────────────────────────────────────────────────────
-  async function startScraping() {
-    const btn = document.getElementById("btn-scrape");
-    btn.disabled = true;
-    btn.classList.add("running");
-    document.getElementById("btn-label").textContent = "Scraping en cours…";
-    setStatus("info", "Scraping lancé — durée estimée : 1 à 2 minutes…");
-    try {
-      const res = await fetch(`${API_BASE}/api/scrape`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ source: "all" })
-      });
-      if (res.status === 409) setStatus("info", "Un scraping est déjà en cours, patience…");
-      else if (!res.ok) throw new Error();
-      pollInterval = setInterval(pollStatus, 5000);
-    } catch {
-      setStatus("error", "Impossible de joindre l'API. Vérifiez que api.py est lancé.");
       resetBtn();
     }
-  }
+  } catch { clearInterval(pollInterval); setStatus("error", "Impossible de vérifier le statut."); resetBtn(); }
+}
 
-  async function pollStatus() {
-    try {
-      const res = await fetch(`${API_BASE}/api/status`);
-      const data = await res.json();
-      if (!data.running) {
-        clearInterval(pollInterval); pollInterval = null;
-        if (data.success === true) {
-          setStatus("success", `Scraping terminé — ${data.total_offers} offres récupérées`);
-          await loadOffers();
-        } else if (data.success === false) {
-          setStatus("error", `Erreur : ${data.error}`);
-        }
-        resetBtn();
-      }
-    } catch {
-      clearInterval(pollInterval);
-      setStatus("error", "Impossible de vérifier le statut.");
-      resetBtn();
-    }
-  }
+function resetBtn() {
+  const btn = document.getElementById("btn-scrape");
+  btn.disabled = false; btn.classList.remove("running");
+  document.getElementById("btn-label").textContent = "Relancer le scraping";
+}
 
-  function resetBtn() {
-    const btn = document.getElementById("btn-scrape");
-    btn.disabled = false;
-    btn.classList.remove("running");
-    document.getElementById("btn-label").textContent = "Relancer le scraping";
-  }
-
-  // ── HELPERS ────────────────────────────────────────────────────────────────
-  function showEmpty(title, sub) {
-    document.getElementById("offers-body").innerHTML = `
-      <tr><td colspan="5">
-        <div class="table-placeholder">
-          <strong>${escHtml(title)}</strong>${escHtml(sub)}
-        </div>
-      </td></tr>`;
-  }
-
-  function showSkeletons() {
-    const widths = [160, 100, 50, 110, 70];
-    document.getElementById("offers-body").innerHTML =
-      Array.from({ length: 8 }, () => `<tr>${
-        widths.map(w => `<td><span class="skeleton-line" style="width:${w}px">&nbsp;</span></td>`).join("")
-      }</tr>`).join("");
-  }
-
-  function setStatus(type, msg) {
-    const bar = document.getElementById("status-bar");
-    bar.className = `status-bar visible ${type}`;
-    bar.textContent = msg;
-  }
-
-  function escHtml(str) {
-    return String(str)
-      .replace(/&/g, "&amp;").replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-  }
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+function showEmpty(title, sub) {
+  document.getElementById("offers-body").innerHTML =
+    `<tr><td colspan="5"><div class="table-placeholder"><strong>${escHtml(title)}</strong>${escHtml(sub)}</div></td></tr>`;
+}
+function showSkeletons() {
+  const w = [160,100,50,110,70];
+  document.getElementById("offers-body").innerHTML =
+    Array.from({length:8},()=>`<tr>${w.map(x=>`<td><span class="skeleton-line" style="width:${x}px">&nbsp;</span></td>`).join("")}</tr>`).join("");
+}
+function setStatus(type, msg) {
+  const bar = document.getElementById("status-bar");
+  bar.className = `status-bar visible ${type}`; bar.textContent = msg;
+}
+function escHtml(str) {
+  return String(str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
 </script>
 </body>
 </html>
