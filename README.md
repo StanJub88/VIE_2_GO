@@ -28,7 +28,7 @@ Python / Flask + un peu de HTML/JS vanilla. Cache en JSON local. Déployé sur R
 ## Lancer en local
 
 ```bash
-git clone https://github.com/StanJub88/VIE_2_GO.git
+git clone https://github.com/StanJub/VIE_2_GO.git
 cd VIE_2_GO
 pip install -r requirements.txt
 python3 api.py
